@@ -11,8 +11,7 @@
   Make sure that the PostgreSQL server is up and running and create a new user:
 
   <pre><code>
-  $ /usr/bin/sudo -u postgres psql --command "CREATE USER scalauser WITH SUPERUSER\
-  PASSWORD 'scalapass';"
+  $ /usr/bin/sudo -u postgres psql --command "CREATE USER scalauser WITH SUPERUSER PASSWORD 'scalapass';"
   </code></pre>
 
   Then, create a new database for our authentication mechanism:
@@ -24,13 +23,13 @@
   The application also utilizes a frontend workflow based on NodeJS. This means that you'll need to have two NodeJS tools installed - <code>node</code> and <code>npm</code>. Since NodeJS is in constant development, I recommend you install nvm - the NodeJS version manager. Just go to <a href="https://github.com/creationix/nvm#install-script">their website</a> and follow the instructions. Again, if you're on Ubuntu (or other Unix), everything is easy:
 
   <pre><code>
-  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash
+  $ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash
   </code></pre>
 
   After <code>nvm</code> is installed, use it to obtain NodeJS itself:
 
   <pre><code>
-  nvm install v5.3.0
+  $ nvm install v5.3.0
   </code></pre>
 
   Add this to the very end of your .bashrc to make sure that NodeJS 5.3.0 is used by default:
@@ -58,6 +57,13 @@
   $ npm run watch
   </code></pre>
 
+  Finally, use another terminal window to start Activator in debug mode:
+
+  <pre><code>
+  $ ./activator -jvm-debug 9999
+  </code></pre>
+
+  Note that Webpack is started in the monitor mode and recompile frontend assets after you change them. Once you start the Play application from Activator using the <code>run</code> command, it will also start monotoring backend source files for changes. 
 </div>
 
 
