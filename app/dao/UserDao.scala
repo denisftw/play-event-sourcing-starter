@@ -37,7 +37,7 @@ class UserDao {
   }
 
   def checkUser(userCode: String, password: String): Try[User] = Try {
-    DB.readOnly { implicit session =>
+    NamedDB('auth).readOnly { implicit session =>
       val maybeUser = sql"select * from users where user_code = $userCode".
         map(User.fromRS).single().apply()
       maybeUser match {
