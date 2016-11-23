@@ -9,7 +9,8 @@ import scala.concurrent.Future
 import scala.util.{Failure, Success}
 
 
-case class UserAuthRequest[A](user: User, request: Request[A]) extends  WrappedRequest[A](request)
+case class UserAuthRequest[A](user: User,
+  request: Request[A]) extends  WrappedRequest[A](request)
 
 class UserAuthAction(authService: AuthService)
     extends ActionBuilder[UserAuthRequest] {

@@ -12,40 +12,37 @@ import play.api.mvc.{Cookie, RequestHeader}
 import scala.concurrent.duration.Duration
 import scala.util.{Success, Try}
 
-/**
-  * Created by denis on 2/11/16.
-  */
 class AuthService(sessionDao: SessionDao, userDao: UserDao) {
 
   val mda = MessageDigest.getInstance("SHA-512")
   val cookieHeader = "X-Auth-Token"
 
   def login(userCode: String, password: String): Try[Cookie] = {
-    val userD = userDao.checkUser(userCode, password)
-    userD.flatMap { user =>
+    val userT = userDao.checkUser(userCode, password)
+    userT.flatMap { user =>
       createCookie(user)
     }
   }
 
   def register(userCode: String, fullName: String, password: String): Try[Cookie] = {
-    val userD = userDao.insertUser(userCode, fullName, password)
-    userD.flatMap { user =>
+    val userT = userDao.insertUser(userCode, fullName, password)
+    userT.flatMap { user =>
       createCookie(user)
     }
   }
 
   def checkCookie(header: RequestHeader): Try[Option[User]] = {
     val maybeCookie = header.cookies.get(cookieHeader)
-    val maybeUserD = maybeCookie match {
+    val maybeUserT = maybeCookie match {
       case Some(cookie) =>
-        val maybeUserSessionD = sessionDao.findSession(cookie.value)
-        maybeUserSessionD.flatMap {
+        val maybeUserSessionT = sessionDao.findSession(cookie.value)
+        maybeUserSessionT.flatMap {
           case Some(userSession) => userDao.findById(userSession.userId)
           case None => Success(None)
         }
       case None => Success(None)
     }
-    maybeUserD
+    maybeUserT
   }
 
   def destroySession(header: RequestHeader): Try[Unit] = {
@@ -64,8 +61,8 @@ class AuthService(sessionDao: SessionDao, userDao: UserDao) {
     val duration = Duration.create(10, TimeUnit.HOURS)
 
     val userSession = UserSession.create(user, token, duration.toSeconds)
-    val insertV = sessionDao.insertSession(userSession)
-    insertV.map { insert =>
+    val insertT = sessionDao.insertSession(userSession)
+    insertT.map { insert =>
       Cookie(cookieHeader, token, maxAge = Some(duration.toSeconds.toInt), httpOnly = true)
     }
   }

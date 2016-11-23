@@ -27,7 +27,7 @@ class UserDao {
   def insertUser(userCode: String, fullName: String,
     password: String): Try[User] = Try {
     val passwordHash = BCrypt.hashpw(password, BCrypt.gensalt())
-    val user = User(UUID.randomUUID(), userCode, fullName, passwordHash)
+    val user = User(UUID.randomUUID(), userCode, fullName, passwordHash, isAdmin = false)
     NamedDB('auth).localTx { implicit session =>
       sql"""insert into users(user_id, user_code, full_name, password, is_admin)
        values (${user.userId}, ${user.userCode}, ${user.fullName},

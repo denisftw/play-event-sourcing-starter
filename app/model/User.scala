@@ -4,7 +4,7 @@ import java.util.UUID
 import scalikejdbc.WrappedResultSet
 
 case class User(userId: UUID, userCode: String, fullName: String,
-                password: String, isAdmin: Boolean = true) {
+                password: String, isAdmin: Boolean) {
   def urlCode: String = userId.toString.split("-")(0)
 }
 

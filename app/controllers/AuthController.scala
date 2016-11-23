@@ -16,7 +16,7 @@ class AuthController(authService: AuthService,
     Redirect("/").discardingCookies(DiscardingCookie(authService.cookieHeader))
   }
 
-  def login = Action {
+  def login = Action { request =>
     Ok(views.html.security.login(None))
   }
 
@@ -28,8 +28,8 @@ class AuthController(authService: AuthService,
     userLoginDataForm.bindFromRequest.fold(
       formWithErrors => Ok(views.html.security.login(Some("Wrong data"))),
       userData => {
-        val cookieD = authService.login(userData.username, userData.password)
-        cookieD match {
+        val cookieT = authService.login(userData.username, userData.password)
+        cookieT match {
           case Success(cookie) =>
             UserAuthAction.redirectAfterLogin(request, cookie)
           case Failure(th) => Ok(views.html.security.login(Some(th.getMessage)))
@@ -46,9 +46,9 @@ class AuthController(authService: AuthService,
         if (!passwordsMatch) Ok(views.html.security.signUp(
           Some("Passwords don't match")))
         else {
-          val cookieD = authService.register(userData.username,
+          val cookieT = authService.register(userData.username,
             userData.fullName, userData.password1)
-          cookieD match {
+          cookieT match {
             case Success(cookie) => Redirect("/").withCookies(cookie)
             case Failure(th) =>
               Ok(views.html.security.signUp(Some(th.getMessage)))

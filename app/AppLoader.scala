@@ -15,7 +15,7 @@ import services._
 
 import scala.concurrent.Future
 
-class AppApplicationLoader extends ApplicationLoader {
+class AppLoader extends ApplicationLoader {
   def load(context: Context) = {
     LoggerConfigurator(context.environment.classLoader).foreach { configurator =>
       configurator.configure(context.environment)
