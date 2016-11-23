@@ -31,9 +31,9 @@ class AppComponent {
           to the Play-based part.
           <br/>
           Now try logging in/logging out using the navigation links on the top.
-          The default user has credentials <code>user@example.com</code>/<code>password123</code>.
+          The default user has credentials <code>user@example.com</code> and <code>password123</code>.
           <br/>
-          You can also register a new user using via <a href="/signup">Sing Up form</a>.
+          You can also register a new user using the <a href="/signup">Sing Up form</a>.
         </div>, reactDiv);
     }
   }
