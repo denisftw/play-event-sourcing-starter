@@ -5,10 +5,8 @@ import axios from 'axios';
 
 class AppComponent {
   init = () => {
-    this.renderComponent();
-  };
-  initState = () => {
     this.initLoginRedirecting();
+    this.renderComponent();
   };
   initLoginRedirecting = () => {
     axios.interceptors.response.use((response) => {
@@ -23,7 +21,6 @@ class AppComponent {
   renderComponent = () => {
     const reactDiv = document.getElementById('reactDiv');
     if (!!reactDiv) {
-      this.initState();
       ReactDOM.render(
         <div className="view-home-composite__react-panel__welcome-text">
           If you can see this message then

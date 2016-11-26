@@ -3,7 +3,6 @@ import play.api.ApplicationLoader.Context
 import play.api._
 import play.api.db.{DBComponents, HikariCPComponents}
 import play.api.db.evolutions.{DynamicEvolutions, EvolutionsComponents}
-import play.api.libs.ws.ahc.AhcWSComponents
 import play.api.routing.Router
 import router.Routes
 import com.softwaremill.macwire._
@@ -24,7 +23,7 @@ class AppLoader extends ApplicationLoader {
   }
 }
 
-trait AppComponents extends BuiltInComponents with AhcWSComponents
+trait AppComponents extends BuiltInComponents
  with EvolutionsComponents with DBComponents with HikariCPComponents {
   lazy val assets: Assets = wire[Assets]
   lazy val prefix: String = "/"
