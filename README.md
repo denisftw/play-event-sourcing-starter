@@ -2,6 +2,10 @@
 
 This is the activator template of sample event sourcing application that we will be building over the course of the [Practical Event Sourcing with Scala](https://leanpub.com/practical-event-sourcing-with-scala) ebook I'm currently writing.
 
+## Update (April 27, 2017)
+
+As Lightbend Activator is approaching the end of life, this template was converted to Giter8 format. Check it [here](https://github.com/denisftw/play-event-sourcing-starter.g8).
+
 ## Description
 
 The template is loosely based on the sample application built during the course of [Modern Web Development with Scala](https://leanpub.com/modern-web-development-with-scala). In particular:
